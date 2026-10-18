@@ -21,5 +21,10 @@ _EOF_
 
 cd tempdir || exit
 docker build -t sampleapp .
+#! Automatisch verwijderen van oude container om een foutmelding in Jenkins te vermijden
+docker stop samplerunning 2>/dev/null || true
+docker rm samplerunning 2>/dev/null || true
+
+#/deployment van nieuwe container
 docker run -t -d -p 5050:5050 --name samplerunning sampleapp
 docker ps -a 
